@@ -16,7 +16,7 @@
         /// Aggregates advertisers from the specified location and all parent locations.
         /// </summary>
         /// <param name="locationParts">An array of location segments (e.g., ["ru", "svrd", "revda"], which go in nesting order).</param>
-        /// <param name="cancellationToken">Optional token to cancel the operation.</param>
+        /// <param name="cancellationToken">Token to cancel the operation.</param>
         /// <returns>An array of matching advertiser names.</returns>
         Task<string[]> GetAdvertisersAsync(string[] locationParts, CancellationToken cancellationToken = default);
     }
