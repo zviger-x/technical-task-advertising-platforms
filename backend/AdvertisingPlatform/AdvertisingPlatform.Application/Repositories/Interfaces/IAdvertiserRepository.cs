@@ -3,13 +3,15 @@
     public interface IAdvertiserRepository
     {
         /// <summary>
-        /// Adds an advertiser with a set of location paths.
-        /// Each location is represented as an array of location segments (e.g., ["ru", "svrd", "revda"], which go in nesting order).
+        /// Replaces all advertisers and their associated location paths.
+        /// Clears the entire storage and loads the new dataset.
         /// </summary>
-        /// <param name="advertiser">The name of the advertiser to add.</param>
-        /// <param name="locationParts">A collection of location paths represented as arrays of segments.</param>
+        /// <param name="advertiserLocations">
+        /// A collection of tuples where each tuple contains an advertiser name and their location path segments.
+        /// Segments go in nesting order.
+        /// </param>
         /// <param name="cancellationToken">Token to cancel the operation.</param>
-        Task AddAsync(string advertiser, IEnumerable<string[]> locationParts, CancellationToken cancellationToken = default);
+        Task SetAllAsync(IEnumerable<(string Advertiser, string[] LocationParts)> advertiserLocations, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Retrieves all advertisers relevant to the given location path.
