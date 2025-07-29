@@ -12,7 +12,7 @@
         /// A collection of tuples, each containing an advertiser name and the corresponding location path segments.
         /// Segments are in nesting order.
         /// </returns>
-        Task<IEnumerable<(string Advertiser, string[] LocationParts)>> ParseFileAsync(Stream inputStream, CancellationToken cancellationToken = default);
+        Task<IEnumerable<(string Advertiser, string[][] LocationParts)>> ParseFileAsync(Stream inputStream, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Parses a raw location path into its individual segments.

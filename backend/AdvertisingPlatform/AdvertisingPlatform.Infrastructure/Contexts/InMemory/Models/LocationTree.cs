@@ -1,15 +1,18 @@
 ﻿namespace AdvertisingPlatform.Infrastructure.Contexts.InMemory.Models
 {
-    public sealed class LocationTree
+    internal sealed class LocationTree
     {
         private volatile LocationNode _root = new();
 
-        public void AddAdvertisers(IEnumerable<(string advertiser, IEnumerable<string[]> locations)> advertiserLocations)
+        public void SetAdvertisers(IEnumerable<AdvertiserLocations> advertiserLocations)
         {
             var newRoot = new LocationNode();
 
-            foreach (var (advertiser, paths) in advertiserLocations)
+            foreach (var advLoc in advertiserLocations)
             {
+                var advertiser = advLoc.Advertiser;
+                var paths = advLoc.Locations;
+
                 foreach (var path in paths)
                 {
                     var current = newRoot;
