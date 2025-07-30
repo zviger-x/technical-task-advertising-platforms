@@ -2,7 +2,7 @@
 
 namespace AdvertisingPlatform.Application.Mediator.Commands
 {
-    public sealed class AddAdvertisersCommand : IRequest
+    public sealed class SetAdvertisersCommand : IRequest
     {
         public required Stream FileStream { get; init; }
     }
