@@ -3,8 +3,14 @@ using System.Text;
 
 namespace AdvertisingPlatform.Infrastructure.Utils
 {
-    public class AdvertiserParser : IAdvertiserParser
+    /// <summary>
+    /// Parses advertiser location input using stack allocation for small inputs,
+    /// and falls back to heap allocation when the size exceeds a predefined limit.
+    /// </summary>
+    public class AdvertiserParserStackHeap : IAdvertiserParser
     {
+        private const int StackLimit = 64;
+
         public async Task<IEnumerable<(string Advertiser, string[][] LocationParts)>> ParseFileAsync(Stream inputStream, CancellationToken cancellationToken = default)
         {
             var results = new List<(string Advertiser, string[][] LocationParts)>();
@@ -46,8 +52,13 @@ namespace AdvertisingPlatform.Infrastructure.Utils
             if (advertiserSpan.IsEmpty || locationsSpan.IsEmpty)
                 return null;
 
-            var numberOfComma = locationsSpan.Count(',');
-            var locationsRanges = new Span<Range>(new Range[numberOfComma + 1]);
+            // +1 нужно, потому что у нас может и не быть ',' и массив не создастся
+            var length = locationsSpan.Count(',') + 1;
+
+            var locationsRanges = length <= StackLimit
+                ? stackalloc Range[length]
+                : new Span<Range>(new Range[length]);
+
             var locationCount = locationsSpan.Split(locationsRanges, ',', StringSplitOptions.RemoveEmptyEntries);
 
             if (locationCount == 0)
@@ -70,8 +81,13 @@ namespace AdvertisingPlatform.Infrastructure.Utils
 
         private string[] ParseLocation(ReadOnlySpan<char> locationPath)
         {
-            var numberOfSlashes = locationPath.Count('/');
-            var partsRanges = new Span<Range>(new Range[numberOfSlashes + 1]);
+            // Аналогично +1 нужно, потому что у нас может и не быть '/'
+            var length = locationPath.Count('/') + 1;
+
+            var partsRanges = length <= StackLimit
+                ? stackalloc Range[length]
+                : new Span<Range>(new Range[length]);
+
             var partCount = locationPath.Split(partsRanges, '/', StringSplitOptions.RemoveEmptyEntries);
 
             if (partCount == 0)
