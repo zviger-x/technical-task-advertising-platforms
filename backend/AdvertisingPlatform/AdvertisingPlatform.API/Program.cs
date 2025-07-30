@@ -20,6 +20,8 @@ public class Program
 
         services.AddAuthorization();
 
+        // API
+        services.AddControllers();
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
 
@@ -32,6 +34,8 @@ public class Program
         }
 
         app.UseAuthorization();
+
+        app.MapControllers();
 
         app.Run();
     }
