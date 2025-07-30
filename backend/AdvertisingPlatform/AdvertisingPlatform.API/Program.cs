@@ -1,3 +1,5 @@
+using AdvertisingPlatform.API.Extensions;
+
 namespace AdvertisingPlatform.API;
 
 public class Program
@@ -7,6 +9,14 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         var services = builder.Services;
+
+        // Application
+        services.AddAdvertiserParsers();
+        services.AddMediatRHandlers();
+
+        // Infrastructure
+        services.AddDbContexts();
+        services.AddRepositories();
 
         services.AddAuthorization();
 
