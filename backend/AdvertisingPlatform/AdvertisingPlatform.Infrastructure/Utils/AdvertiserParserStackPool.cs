@@ -31,14 +31,14 @@ namespace AdvertisingPlatform.Infrastructure.Utils
                     results.Add(parsedLine.Value);
             }
 
-            return results;
+            return results ?? Enumerable.Empty<(string Advertiser, string[][] LocationParts)>();
         }
 
         public Task<string[]> ParseLocationAsync(string locationPath, CancellationToken cancellationToken = default)
         {
             var parts = ParseLocation(locationPath.AsSpan());
 
-            return Task.FromResult(parts);
+            return Task.FromResult(parts ?? Array.Empty<string>());
         }
 
         private (string Advertiser, string[][] LocationParts)? ParseLine(ReadOnlySpan<char> line)
