@@ -1,0 +1,22 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: AdvertisingPlatform.API/Dockerfile  
+    container_name: AppAPI
+    stdin_open: true
+    tty: true
+    environment:
+      - DOTNET_SYSTEM_CONSOLE_ALLOW_ANSI_COLORING=true
+      - TERM=xterm-256color
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+    ports:
+      - "8080:8080"
+    restart: always
+    networks:
+      - internal-docker-network
+
+networks:
+  internal-docker-network:
+    driver: bridge
