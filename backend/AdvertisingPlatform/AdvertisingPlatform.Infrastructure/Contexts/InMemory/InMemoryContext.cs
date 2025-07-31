@@ -9,7 +9,7 @@ namespace AdvertisingPlatform.Infrastructure.Contexts.InMemory
     {
         private readonly LocationTree _locationTree = new();
 
-        public void SetAdvertisers(IEnumerable<AdvertiserLocations> advertiserLocations)
+        public void SetAdvertisers(IEnumerable<(string Advertiser, string[][] Locations)> advertiserLocations)
         {
             _locationTree.SetAdvertisers(advertiserLocations);
         }

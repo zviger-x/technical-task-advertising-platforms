@@ -4,15 +4,12 @@
     {
         private volatile LocationNode _root = new();
 
-        public void SetAdvertisers(IEnumerable<AdvertiserLocations> advertiserLocations)
+        public void SetAdvertisers(IEnumerable<(string Advertiser, string[][] Locations)> advertiserLocations)
         {
             var newRoot = new LocationNode();
 
-            foreach (var advLoc in advertiserLocations)
+            foreach (var (advertiser, paths) in advertiserLocations)
             {
-                var advertiser = advLoc.Advertiser;
-                var paths = advLoc.Locations;
-
                 foreach (var path in paths)
                 {
                     var current = newRoot;

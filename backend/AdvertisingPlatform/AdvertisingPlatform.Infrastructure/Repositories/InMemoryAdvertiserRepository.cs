@@ -1,6 +1,5 @@
 ﻿using AdvertisingPlatform.Application.Repositories.Interfaces;
 using AdvertisingPlatform.Infrastructure.Contexts.InMemory;
-using AdvertisingPlatform.Infrastructure.Contexts.InMemory.Models;
 
 namespace AdvertisingPlatform.Infrastructure.Repositories
 {
@@ -17,11 +16,7 @@ namespace AdvertisingPlatform.Infrastructure.Repositories
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            var advLocs = advertiserLocations
-                .Select(x => new AdvertiserLocations { Advertiser = x.Advertiser, Locations = x.Locations })
-                .ToList();
-
-            _context.SetAdvertisers(advLocs);
+            _context.SetAdvertisers(advertiserLocations);
 
             return Task.CompletedTask;
         }
