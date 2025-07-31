@@ -1,4 +1,5 @@
 using AdvertisingPlatform.API.Extensions;
+using Shared.Middlewares;
 
 namespace AdvertisingPlatform.API;
 
@@ -29,6 +30,8 @@ public class Program
         services.AddSwaggerGen();
 
         var app = builder.Build();
+
+        app.UseMiddleware<ExceptionHandlingMiddleware>();
 
         if (app.Environment.IsDevelopment())
         {

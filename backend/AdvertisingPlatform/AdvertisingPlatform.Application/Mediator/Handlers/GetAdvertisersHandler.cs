@@ -15,7 +15,7 @@ namespace AdvertisingPlatform.Application.Mediator.Handlers
             _repository = repository;
             _parser = parser;
         }
-		
+
         public async Task<string[]> Handle(GetAdvertisersQuery request, CancellationToken cancellationToken)
         {
             var parts = await _parser.ParseLocationAsync(request.LocationPath, cancellationToken);
