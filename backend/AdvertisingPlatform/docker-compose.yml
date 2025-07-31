@@ -1,8 +1,8 @@
 services:
   api:
     build:
-      context: .
-      dockerfile: AdvertisingPlatform.API/Dockerfile  
+      context: ..
+      dockerfile: AdvertisingPlatform/AdvertisingPlatform.API/Dockerfile  
     container_name: AppAPI
     stdin_open: true
     tty: true

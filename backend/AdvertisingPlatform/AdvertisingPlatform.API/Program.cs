@@ -9,6 +9,9 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         var services = builder.Services;
+        var logging = builder.Logging;
+
+        logging.ConfigureLogger();
 
         // Application
         services.AddAdvertiserParsers();

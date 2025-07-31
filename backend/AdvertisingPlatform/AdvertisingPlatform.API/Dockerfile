@@ -6,17 +6,17 @@ USER $APP_UID
 WORKDIR /app
 EXPOSE 8080
 
-
 # Этот этап используется для сборки проекта службы
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["AdvertisingPlatform.API/AdvertisingPlatform.API.csproj", "AdvertisingPlatform.API/"]
-COPY ["AdvertisingPlatform.Application/AdvertisingPlatform.Application.csproj", "AdvertisingPlatform.Application/"]
-COPY ["AdvertisingPlatform.Infrastructure/AdvertisingPlatform.Infrastructure.csproj", "AdvertisingPlatform.Infrastructure/"]
-RUN dotnet restore "./AdvertisingPlatform.API/AdvertisingPlatform.API.csproj"
+COPY ["AdvertisingPlatform/AdvertisingPlatform.API/AdvertisingPlatform.API.csproj", "AdvertisingPlatform/AdvertisingPlatform.API/"]
+COPY ["Shared/Shared/Shared.csproj", "Shared/Shared/"]
+COPY ["AdvertisingPlatform/AdvertisingPlatform.Application/AdvertisingPlatform.Application.csproj", "AdvertisingPlatform/AdvertisingPlatform.Application/"]
+COPY ["AdvertisingPlatform/AdvertisingPlatform.Infrastructure/AdvertisingPlatform.Infrastructure.csproj", "AdvertisingPlatform/AdvertisingPlatform.Infrastructure/"]
+RUN dotnet restore "./AdvertisingPlatform/AdvertisingPlatform.API/AdvertisingPlatform.API.csproj"
 COPY . .
-WORKDIR "/src/AdvertisingPlatform.API"
+WORKDIR "/src/AdvertisingPlatform/AdvertisingPlatform.API"
 RUN dotnet build "./AdvertisingPlatform.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # Этот этап используется для публикации проекта службы, который будет скопирован на последний этап
